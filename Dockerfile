@@ -1,6 +1,7 @@
 FROM python:3.6.2rc2
 LABEL maintainer "felipe.sfrazao@outlook.com"
 ENV PYTHONUNBUFFERED 1
+EXPOSE 5005
 
 RUN mkdir /frazaochain
 WORKDIR /frazaochain

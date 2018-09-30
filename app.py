@@ -42,16 +42,18 @@ def mine():
 @app.route('/transactions/new', methods=['POST'])
 def new_transaction():
     values = request.get_json()
+    if values is None:
+        return "Missing requirements", 400
 
     required = ['sender', 'recipient', 'amount']
-    if not all(value in values for requirements in required):
+    if not all(k in values for k in required):
         return "Mising requirements", 400
 
     index = frazaochain.new_transaction(values['sender'],
-                                        values['recipient', values['amount']])
+                                        values['recipient'], values['amount'])
 
     response = {'message': f'Transaction will be added to Block {index}'}
-    return jsonify(response, 201)
+    return jsonify(response), 201
 
 
 @app.route('/chain', methods=['GET'])
@@ -65,4 +67,4 @@ def full_chain():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5005)
+    app.run(host='0.0.0.0', debug=True, port=5005)

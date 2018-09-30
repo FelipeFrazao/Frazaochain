@@ -27,7 +27,7 @@ class Frazaochain(object):
         }
 
         # Reset the current list of transactions
-        self.current_transaction = []
+        self.current_transactions = []
         self.chain.append(block)
         return block
 
@@ -39,7 +39,7 @@ class Frazaochain(object):
         :param amount: <int> Amount
         :return: <int> The index of the Block that will hold this transaction
         """
-        self.current_transaction.append({
+        self.current_transactions.append({
             'sender': sender,
             'recipient': recipient,
             'amount': amount,
