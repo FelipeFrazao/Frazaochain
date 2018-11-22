@@ -5,6 +5,9 @@ from urllib.parse import urlparse
 
 import requests
 
+from models.block import Block
+from models.transactions import Transaction
+
 
 class Frazaochain(object):
     def __init__(self):
@@ -22,6 +25,15 @@ class Frazaochain(object):
         :param previous_hash: (Optional) <str> Hash of previous Block
         :return: <dict> New Block
         """
+        previous_hash = previous_hash or self.hash(self.chain[-1])
+        block = Block(
+            index=len(self.chain) + 1,
+            timestamp=time(),
+            transactions=self.current_transactions,
+            proof=proof,
+            previous_hash=previous_hash,
+        )
+        block.save()
         block = {
             "index": len(self.chain) + 1,
             "timestamp": time(),
